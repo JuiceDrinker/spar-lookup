@@ -26,14 +26,14 @@ export const isValidPnr = (pnr: string) => {
   return false;
 };
 
-const reconstructYear = (year: number) => {
+export const reconstructYear = (year: number) => {
   if (year < 24) {
     return 2000 + year;
   }
   return 1900 + year;
 };
 
-const isValidDate = (year: number, month: number, date: number) => {
+export const isValidDate = (year: number, month: number, date: number) => {
   if (year < 0) {
     return false;
   }

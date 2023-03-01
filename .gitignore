@@ -1,0 +1,6 @@
+dist/
+node_modules/
+certificates/
+.DS_store
+.vscode/
+.prettiersrc/

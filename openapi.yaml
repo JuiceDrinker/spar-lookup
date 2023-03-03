@@ -43,6 +43,8 @@ paths:
             application/json:
               schema:
                 $ref: "./SPARResponse.yaml"
+        "400":
+          description: Swedish identity number was not provided
         "422":
           description: Swedish identity number was not in a valid format
         "503":

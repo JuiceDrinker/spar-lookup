@@ -1,0 +1,49 @@
+openapi: 3.0.0
+info:
+  title: SPAR Lookup service
+  description: API to communicate with SPAR registry
+  version: 1.0.0
+
+servers:
+  - url: https://localhost:3000
+
+paths:
+  /lookup-request:
+    post:
+      summary: Returns the SPAR registry information given a Swedish personal identity number (sv - personnummer)
+      description: >
+        Given a Swedish personal identity number, endpoint will make a call to the SPAR registry if the identity number provided is valid. 
+        The examples below show the three formats considered valid by the API.
+      requestBody:
+        description: A valid Swedish personal identity number
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                pnr:
+                  type: string
+            examples:
+              10 digits with seperator:
+                value: 900116-6959
+                description: >
+                  Persons are expected to be <100 year old i.e. 24MMDD-XXXX will be interpreted as 1924MMDD-XXXX and 23MMDD-XXXX as 2023MMDD-XXXX
+              10 digits without seperator:
+                value: 9001166959
+                description: >
+                  Persons are expected to be less than 100 years old i.e. 24MMDDXXXX will be interpreted as 1924MMDDXXXX and 23MMDD-XXXX as 2023MMDD-XXXX
+              12 digits without seperator:
+                value: 199001166959
+
+      responses:
+        "200":
+          description: Request was valid and successful.
+          content:
+            application/json:
+              schema:
+                $ref: "./SPARResponse.yaml"
+        "422":
+          description: Swedish identity number was not in a valid format
+        "503":
+          description: Error communicating with SPAR registry

@@ -1,13 +1,13 @@
-import { isValidPnr } from "./utils/isValidPnr";
+import { isValidPnr } from "../utils/isValidPnr";
 import parser from "xml2json";
 
-const executeLookup = async (
+export const executeLookup = async (
   pnr: string,
-  client: { postSparLookupRequest: (pnr: string) => Promise<unknown> }
+  client: { makeLookupRequest: (pnr: string) => Promise<unknown> }
 ) => {
   try {
     if (isValidPnr(pnr)) {
-      return await client.postSparLookupRequest(pnr);
+      return await client.makeLookupRequest(pnr);
     } else {
       throw new Error("Invalid personal identity number");
     }

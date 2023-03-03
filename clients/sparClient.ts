@@ -2,8 +2,12 @@ import axios from "axios";
 import https from "https";
 import fs from "fs";
 
+export type SparClient = {
+  makeLookupRequest: (pnr: string) => Promise<Record<string, any>>;
+};
 export const sparClient = () => ({
   makeLookupRequest: async (pnr: string) => {
+    console.log("here");
     const BASE_URL = `https://kt-ext-ws.statenspersonadressregister.se/2021.1/`;
     const createRequestBody = (
       pnr: string

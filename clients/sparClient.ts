@@ -5,13 +5,14 @@ import fs from "fs";
 export type SparClient = {
   makeLookupRequest: (pnr: string) => Promise<Record<string, any>>;
 };
-export const sparClient = () => ({
-  makeLookupRequest: async (pnr: string) => {
-    console.log("here");
-    const BASE_URL = `https://kt-ext-ws.statenspersonadressregister.se/2021.1/`;
-    const createRequestBody = (
-      pnr: string
-    ) => `<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:per="http://statenspersonadressregister.se/schema/personsok/2021.1/personsokningfraga" xmlns:iden="http://statenspersonadressregister.se/schema/komponent/metadata/identifieringsinformationWs-1.1" xmlns:per1="http://statenspersonadressregister.se/schema/komponent/sok/personsokningsokparametrar-1.1" xmlns:per2="http://statenspersonadressregister.se/schema/komponent/person/person-1.2" xmlns:sok="http://statenspersonadressregister.se/schema/komponent/sok/sokargument-1.2">
+export const BASE_URL = `https://kt-ext-ws.statenspersonadressregister.se/2021.1/`;
+
+export const sparClient = () => {
+  return {
+    makeLookupRequest: async (pnr: string) => {
+      const createRequestBody = (
+        pnr: string
+      ) => `<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:per="http://statenspersonadressregister.se/schema/personsok/2021.1/personsokningfraga" xmlns:iden="http://statenspersonadressregister.se/schema/komponent/metadata/identifieringsinformationWs-1.1" xmlns:per1="http://statenspersonadressregister.se/schema/komponent/sok/personsokningsokparametrar-1.1" xmlns:per2="http://statenspersonadressregister.se/schema/komponent/person/person-1.2" xmlns:sok="http://statenspersonadressregister.se/schema/komponent/sok/sokargument-1.2">
   <soapenv:Header/>
   <soapenv:Body>
      <per:SPARPersonsokningFraga>
@@ -28,18 +29,19 @@ export const sparClient = () => ({
   </soapenv:Body>
   </soapenv:Envelope>`;
 
-    const httpsAgent = new https.Agent({
-      cert: fs.readFileSync("./certificates/bolag-a.crt"),
-      key: fs.readFileSync("./certificates//bolag-a.key"),
-      keepAlive: true,
-    });
+      const httpsAgent = new https.Agent({
+        cert: fs.readFileSync("./certificates/bolag-a.crt"),
+        key: fs.readFileSync("./certificates//bolag-a.key"),
+        keepAlive: true,
+      });
 
-    const response = await axios.post(BASE_URL, createRequestBody(pnr), {
-      headers: { "Content-Type": "text/xml" },
-      httpsAgent,
-    });
+      const response = await axios.post(BASE_URL, createRequestBody(pnr), {
+        headers: { "Content-Type": "text/xml" },
+        httpsAgent,
+      });
 
-    httpsAgent.destroy();
-    return response;
-  },
-});
+      httpsAgent.destroy();
+      return response;
+    },
+  };
+};

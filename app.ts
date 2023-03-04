@@ -2,7 +2,7 @@ import express from "express";
 import { sparClient } from "./clients/sparClient";
 import { executeLookup } from "./services/sparLookupService";
 
-const app = express();
+export const app = express();
 const port = 3000;
 
 app.use(express.json());
@@ -10,7 +10,9 @@ app.use(express.json());
 app.post("/lookup-request", async (req, res) => {
   const { pnr = "" } = req.body;
   if (!pnr) {
-    return res.status(400).send("No personal identity number provided");
+    return res
+      .status(400)
+      .send({ message: "No personal identity number provided" });
   }
 
   try {
@@ -22,16 +24,20 @@ app.post("/lookup-request", async (req, res) => {
       if (err.message === "Invalid personal identity number") {
         return res
           .status(422)
-          .send("Invalid format of personal identity number");
+          .send({ message: "Invalid format of personal identity number" });
       }
 
       if (err.message === "Communication error with SPAR service") {
-        return res.status(422).send("Could not communicate with SPAR service");
+        return res
+          .status(503)
+          .send({ message: "Could not communicate with SPAR service" });
       }
     }
   }
 });
 
-app.listen(port, () => {
-  return console.log(`Express is listening at http://localhost:${port}`);
-});
+if (process.env.NODE_ENV !== "test") {
+  app.listen(port, () => {
+    return console.log(`Express is listening at http://localhost:${port}`);
+  });
+}

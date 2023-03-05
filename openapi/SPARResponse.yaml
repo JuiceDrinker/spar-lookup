@@ -1,208 +1,109 @@
 example:
-  S:Envelope:
+  PersonId:
     type: object
     properties:
-      xmlns:S:
+      IdNummer:
         type: string
-        example: http://schemas.xmlsoap.org/soap/envelope/
-      S:Body:
+        example: 197910209290
+      Typ:
+        type: string
+        example: PERSONNUMMER
+  Sekretessmarkering:
+    type: string
+    example: NEJ
+  SkyddadFolkbokforing:
+    type: string
+    example: NEJ
+  SenasteAndringSPAR:
+    type: string
+    format: date
+    example: 2019-12-02
+  Namn:
+    type: object
+    properties:
+      DatumFrom:
+        type: string
+        format: date
+        example: 2019-12-02
+      DatumTill:
+        type: string
+        example: 9999-12-31
+      Fornamn:
+        type: string
+        example: Rudolf Valentino
+      Efternamn:
+        type: string
+        example: Efternamn1074
+  Persondetaljer:
+    type: object
+    properties:
+      DatumFrom:
+        type: string
+        format: date
+        example: 2019-12-02
+      DatumTill:
+        type: string
+        example: 9999-12-31
+      Sekretessmarkering:
+        type: string
+        example: NEJ
+      SkyddadFolkbokforing:
+        type: string
+        example: NEJ
+      Fodelsedatum:
+        type: string
+        format: date
+        example: 1979-10-20
+      Kon:
+        type: string
+        example: MAN
+  Folkbokforing:
+    type: array
+    items:
+      type: object
+      properties:
+        DatumFrom:
+          type: string
+          format: date
+          example: 2019-12-02
+        DatumTill:
+          type: string
+          example: 9999-12-31
+        FolkbokfordLanKod:
+          type: string
+          example: 01
+        FolkbokfordKommunKod:
+          type: string
+          example: 82
+        Hemvist:
+          type: string
+          example: Skriven på adressen
+        Folkbokforingsdatum:
+          type: string
+          format: date
+          example: 1990-12-01
+        DistriktKod:
+          type: string
+          example: 212103
+  Folkbokforingsadress:
+    type: object
+    properties:
+      SvenskAdress:
         type: object
         properties:
-          ns25:SPARPersonsokningSvar:
-            type: object
-            properties:
-              xmlns:
-                type: string
-                example: http://statenspersonadressregister.se/schema/komponent/metadata/identifieringsinformationWs-1.1
-              xmlns:ns2:
-                type: string
-                example: http://statenspersonadressregister.se/schema/komponent/generellt/datumtid-1.1
-              xmlns:ns3:
-                type: string
-                example: http://statenspersonadressregister.se/schema/komponent/person/adress/deladeadresselement-1.1
-              xmlns:ns4:
-                type: string
-                example: http://statenspersonadressregister.se/schema/komponent/person/person-1.2
-              xmlns:ns5:
-                type: string
-                example: http://statenspersonadressregister.se/schema/komponent/person/skyddadepersonuppgifter-1.1
-              xmlns:ns6:
-                type: string
-                example: http://statenspersonadressregister.se/schema/komponent/person/inkomsttaxering-1.2
-              xmlns:ns7:
-                type: string
-                example: http://statenspersonadressregister.se/schema/komponent/person/namn/deladenamnelement-1.0
-              xmlns:ns8:
-                type: string
-                example: http://statenspersonadressregister.se/schema/komponent/person/namn/namn-1.0
-              xmlns:ns9:
-                type: string
-                example: http://statenspersonadressregister.se/schema/komponent/person/avregistrering-1.0
-              xmlns:ns10:
-                type: string
-                example: http://statenspersonadressregister.se/schema/komponent/person/persondetaljer-1.2
-              xmlns:ns11:
-                type: string
-                example: http://statenspersonadressregister.se/schema/komponent/person/hanvisning-1.0
-              xmlns:ns12:
-                type: string
-                example: http://statenspersonadressregister.se/schema/komponent/person/samordningsnummer-1.0
-              xmlns:ns13:
-                type: string
-                example: http://statenspersonadressregister.se/schema/komponent/person/folkbokforing-1.0
-              xmlns:ns14:
-                type: string
-                example: http://statenspersonadressregister.se/schema/komponent/person/adress/folkbokforingsadress-1.1
-              xmlns:ns15:
-                type: string
-                example: http://statenspersonadressregister.se/schema/komponent/person/adress/sarskildpostadress-1.1
-              xmlns:ns16:
-                type: string
-                example: http://statenspersonadressregister.se/schema/komponent/person/adress/utlandsadress-1.1
-              xmlns:ns17:
-                type: string
-                example: http://statenspersonadressregister.se/schema/komponent/person/adress/kontaktadress-1.0
-              xmlns:ns18:
-                type: string
-                example: http://statenspersonadressregister.se/schema/komponent/person/relation-1.2
-              xmlns:ns19:
-                type: string
-                example: http://statenspersonadressregister.se/schema/komponent/person/fastighetstaxering-1.2
-              xmlns:ns20:
-                type: string
-                example: http://statenspersonadressregister.se/schema/komponent/person/aviseringpost-1.2
-              xmlns:ns21:
-                type: string
-                example: http://statenspersonadressregister.se/schema/komponent/sok/sokargument-1.2
-              xmlns:ns22:
-                type: string
-                example: http://statenspersonadressregister.se/schema/komponent/sok/undantag-1.0
-              xmlns:ns23:
-                type: string
-                example: http://statenspersonadressregister.se/schema/komponent/sok/personsokningsokparametrar-1.1
-              xmlns:ns24:
-                type: string
-                example: http://statenspersonadressregister.se/schema/personsok/2021.1/personsokningfraga
-              xmlns:ns25:
-                type: string
-                example: http://statenspersonadressregister.se/schema/personsok/2021.1/personsokningsvar
-              ns23:PersonsokningFraga:
-                type: object
-                properties:
-                  ns4:IdNummer:
-                    type: string
-                    example: 197910209290
-              ns25:PersonsokningSvarspost:
-                type: object
-                properties:
-                  ns4:PersonId:
-                    type: object
-                    properties:
-                      ns4:IdNummer:
-                        type: string
-                        example: 197910209290
-                      ns4:Typ:
-                        type: string
-                        example: PERSONNUMMER
-                  ns5:Sekretessmarkering:
-                    type: string
-                    example: NEJ
-                  ns5:SkyddadFolkbokforing:
-                    type: string
-                    example: NEJ
-                  ns4:SenasteAndringSPAR:
-                    type: string
-                    format: date
-                    example: 2019-12-02
-                  ns8:Namn:
-                    type: object
-                    properties:
-                      ns2:DatumFrom:
-                        type: string
-                        format: date
-                        example: 2019-12-02
-                      ns2:DatumTill:
-                        type: string
-                        example: 9999-12-31
-                      ns7:Fornamn:
-                        type: string
-                        example: Rudolf Valentino
-                      ns7:Efternamn:
-                        type: string
-                        example: Efternamn1074
-                  ns10:Persondetaljer:
-                    type: object
-                    properties:
-                      ns2:DatumFrom:
-                        type: string
-                        format: date
-                        example: 2019-12-02
-                      ns2:DatumTill:
-                        type: string
-                        example: 9999-12-31
-                      ns5:Sekretessmarkering:
-                        type: string
-                        example: NEJ
-                      ns5:SkyddadFolkbokforing:
-                        type: string
-                        example: NEJ
-                      ns10:Fodelsedatum:
-                        type: string
-                        format: date
-                        example: 1979-10-20
-                      ns10:Kon:
-                        type: string
-                        example: MAN
-                  ns13:Folkbokforing:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        ns2:DatumFrom:
-                          type: string
-                          format: date
-                          example: 2019-12-02
-                        ns2:DatumTill:
-                          type: string
-                          example: 9999-12-31
-                        ns13:FolkbokfordLanKod:
-                          type: string
-                          example: 01
-                        ns13:FolkbokfordKommunKod:
-                          type: string
-                          example: 82
-                        ns13:Hemvist:
-                          type: string
-                          example: Skriven på adressen
-                        ns13:Folkbokforingsdatum:
-                          type: string
-                          format: date
-                          example: 1990-12-01
-                        ns13:DistriktKod:
-                          type: string
-                          example: 212103
-                  ns14:Folkbokforingsadress:
-                    type: object
-                    properties:
-                      ns3:SvenskAdress:
-                        type: object
-                        properties:
-                          ns2:DatumFrom:
-                            type: string
-                            format: date
-                            example: 2019-12-02
-                          ns2:DatumTill:
-                            type: string
-                            example: 9999-12-31
-                          ns3:Utdelningsadress2:
-                            type: string
-                            example: Gatan101 2
-                          ns3:PostNr:
-                            type: string
-                            example: 13336
-                          ns3:Postort:
-                            type: string
-                            example: SALTSJÖBADEN
-              ns25:UUID:
-                type: string
-                example: 4c01c98d-dc0c-400b-ab17-3a76eb5b6e49
+          DatumFrom:
+            type: string
+            format: date
+            example: 2019-12-02
+          DatumTill:
+            type: string
+            example: 9999-12-31
+          Utdelningsadress2:
+            type: string
+            example: Gatan101 2
+          PostNr:
+            type: string
+            example: 13336
+          Postort:
+            type: string
+            example: SALTSJÖBADEN

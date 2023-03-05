@@ -38,7 +38,9 @@ paths:
 
       responses:
         "200":
-          description: Request was valid and successful.
+          description: >
+            Request was valid and successful. If a record with the given Swedish personal identity number was found in the SPAR registry, the retrieved information will be found in the response body.
+            If no such record was found, the response body will contain a message indicating that.
           content:
             application/json:
               schema:

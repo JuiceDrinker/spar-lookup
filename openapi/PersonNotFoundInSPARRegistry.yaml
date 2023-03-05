@@ -1,0 +1,5 @@
+type: object
+properties:
+  message:
+    type: string
+    value: PNR not found in SPAR register

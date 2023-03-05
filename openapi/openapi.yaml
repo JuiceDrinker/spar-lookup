@@ -42,7 +42,9 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "./SPARResponse.yaml"
+                anyOf:
+                  - $ref: "./SPARResponse.yaml"
+                  - $ref: "./PersonNotFoundInSPARRegistry.yaml"
         "400":
           description: Swedish identity number was not provided
         "422":

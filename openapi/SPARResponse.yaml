@@ -1,109 +1,69 @@
-example:
+type: object
+properties:
   PersonId:
     type: object
     properties:
       IdNummer:
         type: string
-        example: 197910209290
       Typ:
         type: string
-        example: PERSONNUMMER
   Sekretessmarkering:
     type: string
-    example: NEJ
   SkyddadFolkbokforing:
     type: string
-    example: NEJ
   SenasteAndringSPAR:
     type: string
     format: date
-    example: 2019-12-02
   Namn:
     type: object
     properties:
       DatumFrom:
         type: string
         format: date
-        example: 2019-12-02
       DatumTill:
         type: string
-        example: 9999-12-31
       Fornamn:
         type: string
-        example: Rudolf Valentino
       Efternamn:
         type: string
-        example: Efternamn1074
   Persondetaljer:
     type: object
     properties:
       DatumFrom:
         type: string
         format: date
-        example: 2019-12-02
       DatumTill:
         type: string
-        example: 9999-12-31
       Sekretessmarkering:
         type: string
-        example: NEJ
       SkyddadFolkbokforing:
         type: string
-        example: NEJ
+      AvregistreringsorsakKod:
+        type: string
+      Avregistreringsdatum:
+        type: string
+        format: date
       Fodelsedatum:
         type: string
         format: date
-        example: 1979-10-20
       Kon:
         type: string
-        example: MAN
-  Folkbokforing:
-    type: array
-    items:
-      type: object
-      properties:
-        DatumFrom:
-          type: string
-          format: date
-          example: 2019-12-02
-        DatumTill:
-          type: string
-          example: 9999-12-31
-        FolkbokfordLanKod:
-          type: string
-          example: 01
-        FolkbokfordKommunKod:
-          type: string
-          example: 82
-        Hemvist:
-          type: string
-          example: Skriven på adressen
-        Folkbokforingsdatum:
-          type: string
-          format: date
-          example: 1990-12-01
-        DistriktKod:
-          type: string
-          example: 212103
-  Folkbokforingsadress:
+  Utlandsadress:
     type: object
     properties:
-      SvenskAdress:
+      InternationellAdress:
         type: object
         properties:
           DatumFrom:
             type: string
             format: date
-            example: 2019-12-02
           DatumTill:
             type: string
-            example: 9999-12-31
+          Utdelningsadress1:
+            type: string
           Utdelningsadress2:
             type: string
-            example: Gatan101 2
-          PostNr:
+          Utdelningsadress3:
             type: string
-            example: 13336
-          Postort:
+          Land:
             type: string
-            example: SALTSJÖBADEN

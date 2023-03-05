@@ -13,7 +13,6 @@ export const executeLookup = async (
       throw new Error("Invalid personal identity number");
     }
   } catch (err) {
-    console.error(err);
     if (err.message === "Invalid personal identity number") {
       throw err;
     }

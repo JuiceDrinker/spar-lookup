@@ -18,6 +18,7 @@ app.post("/lookup-request", async (req, res) => {
   try {
     const client = sparClient();
     const sparResponse = await executeLookup(pnr.toString(), client);
+
     res.status(200).json(sparResponse);
   } catch (err: unknown) {
     if (err instanceof Error) {
@@ -27,6 +28,11 @@ app.post("/lookup-request", async (req, res) => {
           .send({ message: "Invalid format of personal identity number" });
       }
 
+      if (err.message === "Not found in SPAR registry") {
+        return res
+          .status(200)
+          .send({ message: `${pnr} not found in SPAR registry` });
+      }
       if (err.message === "Communication error with SPAR service") {
         return res
           .status(503)

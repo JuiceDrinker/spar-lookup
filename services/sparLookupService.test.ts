@@ -1,5 +1,5 @@
 import { describe, it, expect } from "@jest/globals";
-import { SparClient } from "../clients/sparClient";
+import { sparClient } from "../clients/sparClient";
 import { executeLookup } from "./sparLookupService";
 
 describe("executeLookup", () => {
@@ -10,12 +10,7 @@ describe("executeLookup", () => {
   ) =>
     ({
       makeLookupRequest: () => lookupResponse,
-    } as unknown as SparClient);
-
-  const exampleXML = `<note>
-<to>Tove</to>
-</note>
-    `;
+    } as unknown as ReturnType<typeof sparClient>);
 
   it("will throw an error if provided Swedish personal identity number is invalid", async () => {
     const invalidPnr = "000000-0000";
@@ -24,17 +19,13 @@ describe("executeLookup", () => {
     ).rejects.toThrowError("Invalid personal identity number");
   });
 
-  it("will throw an error if SPAR client does not return XML data", async () => {
-    await expect(() =>
-      executeLookup(validPnr, createSparClient(new Error("Some error")))
-    ).rejects.toThrowError("Communication error with SPAR service");
-  });
-
   it("will return the parsed XML response", async () => {
+    const mockResponse = { note: { to: "Tove" } };
+
     const result = await executeLookup(
       validPnr,
-      createSparClient({ data: exampleXML })
+      createSparClient({ mockResponse })
     );
-    expect(result).toMatchObject({ note: { to: "Tove" } });
+    expect(result).toMatchObject({ mockResponse });
   });
 });

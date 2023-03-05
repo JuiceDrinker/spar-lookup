@@ -1,21 +1,23 @@
 import { isValidPnr } from "../utils/isValidPnr";
-import parser from "xml2json";
-import { SparClient } from "../clients/sparClient";
+import { sparClient } from "../clients/sparClient";
 
-export const executeLookup = async (pnr: string, client: SparClient) => {
+export const executeLookup = async (
+  pnr: string,
+  client: ReturnType<typeof sparClient>
+) => {
   try {
     if (isValidPnr(pnr)) {
       const result = await client.makeLookupRequest(pnr);
-      if (typeof result.data === "string" || Buffer.isBuffer(result.data)) {
-        return parser.toJson(result.data, { object: true });
-      } else {
-        throw new Error("Communication error with SPAR service");
-      }
+      return result;
     } else {
       throw new Error("Invalid personal identity number");
     }
   } catch (err) {
+    console.error(err);
     if (err.message === "Invalid personal identity number") {
+      throw err;
+    }
+    if (err.message === "Not found in SPAR registry") {
       throw err;
     }
     throw new Error("Communication error with SPAR service");

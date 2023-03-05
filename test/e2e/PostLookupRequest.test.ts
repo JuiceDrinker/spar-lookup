@@ -2,7 +2,7 @@ import { describe, it, expect, afterEach } from "@jest/globals";
 import nock from "nock";
 import supertest from "supertest";
 import { app } from "../../app";
-import { successfulXmlResponse } from "./mockResponses";
+import { noSuchPnrXmlResponse, successfulXmlResponse } from "./mockResponses";
 
 const SPAR_BASE_URL = `https://kt-ext-ws.statenspersonadressregister.se/2021.1/`;
 describe("POST /lookup-request", () => {
@@ -94,5 +94,19 @@ describe("POST /lookup-request", () => {
         },
       },
     });
+  });
+
+  it("will return HTTP status code 200 and a message indicating that no person with given Swedish identity number was found in SPAR registry", async () => {
+    nock(SPAR_BASE_URL).post("/").reply(200, noSuchPnrXmlResponse, {
+      "Content-Type": "application/xml",
+    });
+
+    const response = await postLookupRequest({ pnr: 199512318834 });
+
+    expect(response.statusCode).toBe(200);
+    expect(response.body).toHaveProperty(
+      "message",
+      "199512318834 not found in SPAR registry"
+    );
   });
 });
